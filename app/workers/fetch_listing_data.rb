@@ -1,4 +1,5 @@
-class FetchListingData
+class FetchListingData < ActiveRecord::Base
+
   require 'nokogiri'
   require 'open-uri'
 
