@@ -1,5 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 
+<p>
+  <b>Listing Address:</b>
+  <%= @listing.address %><br/>
+
+  <b>Listing StreetEasy URL:</b> 
+  <%= @listing.url%><br/>
+
+  <b>Days on Market: </b> 
+  <%= @listing.days_on_market %>
+
+</p>
+
 <%= link_to 'Edit', edit_listing_path(@listing) %> |
 <%= link_to 'Back', listings_path %>
+

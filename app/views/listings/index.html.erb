@@ -1,4 +1,4 @@
-<h1>Listing listings</h1>
+<h1>All Listings</h1>
 
 <table>
   <tr>
@@ -9,6 +9,8 @@
 
 <% @listings.each do |listing| %>
   <tr>
+    <td><%= listing.address %>
+    <td></td>
     <td><%= link_to 'Show', listing %></td>
     <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
     <td><%= link_to 'Destroy', listing, confirm: 'Are you sure?', method: :delete %></td>

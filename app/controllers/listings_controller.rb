@@ -1,6 +1,8 @@
 class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.json
+
+
   def index
     @listings = Listing.all
 
@@ -41,15 +43,11 @@ class ListingsController < ApplicationController
   # POST /listings.json
   def create
     @listing = Listing.new(params[:listing])
-
-    respond_to do |format|
-      if @listing.save
-        format.html { redirect_to @listing, notice: 'Listing was successfully created.' }
-        format.json { render json: @listing, status: :created, location: @listing }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @listing.errors, status: :unprocessable_entity }
-      end
+    if @listing.save
+      Resque.enqueue(FetchListingData, @listing.id)
+      redirect_to @listing, :notice => "Successfully created new listing."
+    else
+      render 'new'
     end
   end
 
@@ -57,6 +55,9 @@ class ListingsController < ApplicationController
   # PUT /listings/1.json
   def update
     @listing = Listing.find(params[:id])
+    if @listing.update_attributes(params[:listing])
+      Resque.enqueue(FetchListingData, @listing.id)
+    end
 
     respond_to do |format|
       if @listing.update_attributes(params[:listing])
