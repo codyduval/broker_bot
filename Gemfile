@@ -5,6 +5,7 @@ gem 'bootstrap-sass', '2.0.0'
 gem 'resque'
 gem 'nokogiri'
 gem 'chronic'
+gem 'mailgun_webhooks'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
