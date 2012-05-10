@@ -6,7 +6,8 @@ class Listing < ActiveRecord::Base
 
   def self.create_from_postmark(mitt)
     listing = Listing.new
-    listing.listed_description = mitt.subject
+    parsed_uri = URI.extract(mitt.text_body)
+    listing.url = parsed_uri
     listing.save
   end
   
