@@ -3,6 +3,12 @@ class Listing < ActiveRecord::Base
 
   has_many :notes
   has_many :photos
+
+  def self.create_from_postmark(mitt)
+    listing = Listing.new
+    listing.listed_description = mitt.subject
+    listing.save
+  end
   
 end
 
