@@ -1,6 +1,8 @@
 Houselistings2::Application.routes.draw do
   resources :listings
 
+  match "/inbound_email/" => "inbound_email#create"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
