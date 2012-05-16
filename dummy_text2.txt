@@ -1,0 +1,67 @@
+{
+  "From": "cody.duval@gmail.com",
+  "FromFull": {
+    "Email": "cody.duval@gmail.com",
+    "Name": "Cody Duval"
+  },
+  "To": "4c94723367a2b7d88457b627f3e3f5ee@inbound.postmarkapp.com",
+  "ToFull": [
+    {
+      "Email": "4c94723367a2b7d88457b627f3e3f5ee@inbound.postmarkapp.com",
+      "Name": ""
+    }
+  ],
+  "Cc": "",
+  "CcFull": [],
+  "ReplyTo": "",
+  "Subject": "Re: Here is a test.",
+  "MessageID": "090aa919-7d4d-4e02-aebd-32e10ab32063",
+  "Date": "Thu, 10 May 2012 15:59:26 -0400",
+  "MailboxHash": "",
+  "TextBody": "> Here is some good stuff.\n>\n> http:\/\/www.corcoran.com\/property\/listing.aspx?Region=NYC&listingid=2250206\n>\n>\n> Talk to you soon.\n>\n",
+  "HtmlBody": "<div class="gmail_quote"><br><blockquote class="gmail_quote" style="margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div>Here is some good stuff.<\/div><div><br><\/div><a href="http:\/\/www.corcoran.com\/property\/listing.aspx?Region=NYC&amp;listingid=2250206" target="_blank">http:\/\/www.corcoran.com\/property\/listing.aspx?Region=NYC&amp;listingid=2250206<\/a><br>\n\n\n<br><div><br><\/div><div>Talk to you soon.<\/div>\n<\/blockquote><\/div><br>\n",
+  "Tag": "",
+  "Headers": [
+    {
+      "Name": "X-Spam-Checker-Version",
+      "Value": "SpamAssassin 3.3.1 (2010-03-16) onrs-ord-pm-inbound1.wildbit.com"
+    },
+    {
+      "Name": "X-Spam-Status",
+      "Value": "No"
+    },
+    {
+      "Name": "X-Spam-Score",
+      "Value": "-0.1"
+    },
+    {
+      "Name": "X-Spam-Tests",
+      "Value": "DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_BLOCKED,SPF_PASS"
+    },
+    {
+      "Name": "Received-SPF",
+      "Value": "Pass (sender SPF authorized) identity=mailfrom; client-ip=209.85.212.170; helo=mail-wi0-f170.google.com; envelope-from=cody.duval@gmail.com; receiver=4c94723367a2b7d88457b627f3e3f5ee@inbound.postmarkapp.com"
+    },
+    {
+      "Name": "DKIM-Signature",
+      "Value": "v=1; a=rsa-sha256; c=relaxed\/relaxed;        d=gmail.com; s=20120113;        h=mime-version:in-reply-to:references:from:date:message-id:subject:to         :content-type;        bh=yPnlHgpcKV9\/x9IQT0Zde+9pAULMAG49FrdEu0gTs70=;        b=xSJXo56YTPK2xJZ8XpD1rWp1NOVzLFmd+PwfKrXU0zky7iEHCCQaYY1z3kEXbne\/F\/         ycDQIIZG3dVTUBJKPM1XOkmEN9HpGKrVVT1PeuImYR2Z0V2GH54jKZfzCR6DuqEVC0tu         rAIbvOgSn\/asaKeOMj1TSctfjyzvV6lecj0b6K\/9tauE35ce5UJMhPu3ybzBQvu\/gI8J         MGeLKX1leoT09oDYgfuZFuoIYTIvgye2LYOoJEkkaCcJ7eEFzm4reHA\/ykdb7Z6G2qod         bXI\/Sliv5H\/OOkdGQ5czKDbG16YvRnUBkWVSv8XxK0bJblxr1Ipq+yvSuaHaU7jPoOoR         RrKg=="
+    },
+    {
+      "Name": "MIME-Version",
+      "Value": "1.0"
+    },
+    {
+      "Name": "In-Reply-To",
+      "Value": "<CACKU+qNtz8W7Ogd5q5xtNw1oQdN0Swt5rRm-X6m+xsjHvFftnA@mail.gmail.com>"
+    },
+    {
+      "Name": "References",
+      "Value": "<CACKU+qN9vWVJOcw9fePEzwFz9JzUhh0U8Dv96Xm0D4JamM_AAQ@mail.gmail.com> <CACKU+qNtz8W7Ogd5q5xtNw1oQdN0Swt5rRm-X6m+xsjHvFftnA@mail.gmail.com>"
+    },
+    {
+      "Name": "Message-ID",
+      "Value": "<CACKU+qPAfrvWZbCp+F_s0q3s8eVP3q8MFfJr1DN0XfTtdAUDWQ@mail.gmail.com>"
+    }
+  ],
+  "Attachments": []
+}
