@@ -6,6 +6,7 @@ module HerokuResqueAutoScale
       @@heroku = Heroku::Client.new(ENV['HEROKU_USER'], ENV['HEROKU_PASS'])
 
       def workers
+        @@heroku.info(ENV['HEROKU_APP'])[:workers].to_i
         # For Cedar
         @@heroku.ps(ENV['HEROKU_APP']).count { |a| a["process"] =~ /worker/ }
       end
