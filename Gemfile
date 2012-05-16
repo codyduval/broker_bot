@@ -6,6 +6,7 @@ gem 'resque'
 gem 'nokogiri'
 gem 'chronic'
 gem 'postmark-mitt'
+gem 'heroku'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
