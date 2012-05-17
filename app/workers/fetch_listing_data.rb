@@ -1,5 +1,5 @@
 class FetchListingData < ApplicationController
-  # extend HerokuResqueAutoScale
+  extend HerokuResqueAutoScale
 
   require 'nokogiri'
   require 'open-uri'
