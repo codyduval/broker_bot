@@ -5,11 +5,24 @@
   <b>Listing Address:</b>
   <%= @listing.address %><br/>
 
-  <b>Listing StreetEasy URL:</b> 
-  <%= @listing.url%><br/>
+  <b>Listing Price:</b>
+  <%= number_to_currency(@listing.listed_price, :precision => 0)%><br/>
 
-  <b>Days on Market: </b> 
-  <%= @listing.days_on_market %>
+  <b>Listing URL:</b> 
+  <%= link_to(@listing.url, @listing.url, :target => '_blank')%><br/>
+
+  <b>Open House Date:</b>
+  <%= open_house_helper %><br/>
+
+  <b>Days Listed (or since last price adjustment): </b> 
+  <%= days_since_listed %><br/>
+
+  <b>Google Map Link:</b>
+  <%= link_to("Map", google_map_helper, :target => '_blank')%> <br/>
+
+  <b>Last Updated: </b> 
+  <%= date_entered_formatted(@listing) %>
+  <%= days_since_updated %>
 
 </p>
 

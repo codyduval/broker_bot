@@ -2,18 +2,20 @@
 
 <table>
   <tr>
-    <th></th>
-    <th></th>
+    <th>Address</th>
+    <th>Date Entered</th>
     <th></th>
   </tr>
 
 <% @listings.each do |listing| %>
   <tr>
-    <td><%= listing.address %>
+    <td><%= listing.address %> </td>
+    <td><%= listing.created_at.to_date.to_formatted_s(:long) %> </td>
     <td></td>
-    <td><%= link_to 'Show', listing %></td>
+    <td><%= link_to 'View Listing', listing.url, :target => '_blank' %></td>
+    <td><%= link_to 'Details', listing %></td>
     <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
-    <td><%= link_to 'Destroy', listing, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Delete', listing, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

@@ -6,6 +6,8 @@ class Listing < ActiveRecord::Base
 
   validates :url, :presence => true
 
+  
+
   def self.create_from_postmark(mitt)
     listing = Listing.new
     message_body = mitt.text_body
