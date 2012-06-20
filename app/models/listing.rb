@@ -10,7 +10,7 @@ class Listing < ActiveRecord::Base
   before_validation :default_values
 
   def default_values
-    self.active_flag    = 'true' if active_flag.nil?
+    self.active_flag  ||= 'true' if active_flag.nil?
     self.address      ||= 'Looking up...'
     self.date_entered ||= Time.now
     self.property_rating ||= '3'
