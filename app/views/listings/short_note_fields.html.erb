@@ -1,0 +1,10 @@
+<div class="nested-fields">
+	<%= f.inputs do %>
+		<%= f.input :note_text, :input_html => { :rows => 2, :cols => 40 } %>
+
+	<% end %>
+  <div class="actions">
+    <%= submit_tag "Add Note"%>
+    <%= link_to_remove_association "Cancel", f%>
+  </div>
+</div>

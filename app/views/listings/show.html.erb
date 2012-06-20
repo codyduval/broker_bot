@@ -3,10 +3,10 @@
 
 <p>
   <b>Listing Address:</b>
-  <%= @listing.address %><br/>
+  <%= on_the_spot_edit @listing, :address, :ok_text => "Yup", :tooltip => "Click me to edit.", :selected => "True" %><br/>
 
   <b>Listing Price:</b>
-  <%= number_to_currency(@listing.listed_price, :precision => 0)%><br/>
+  <%= number_to_currency(@listing.listed_price, :precision => 0, :delimiter => ",")%><br/>
 
   <b>Listing URL:</b> 
   <%= link_to(@listing.url, @listing.url, :target => '_blank')%><br/>
@@ -22,10 +22,38 @@
 
   <b>Last Updated: </b> 
   <%= date_entered_formatted(@listing) %>
-  <%= days_since_updated %>
+  <%= days_since_updated %> <br/>
+  <br/>
+
+  <b>Active?</b>
+  <%= on_the_spot_edit @listing, :active_flag, :type => :select, :data => [[true, 'Active'], [false, 'Inactive']] %> <br/>
+
+  <b>Rating </b> 
+  <%= on_the_spot_edit @listing, :property_rating, :type => :select, :data => [[1,"1"],[2,"2"],[3,"3"],[4,"4"],[5,"5"]] %>
+  <br/>
+
+  <b>Most Recent Note: </b>
+  <%= show_notes_full %><br/>
+
+
+
+
+  <%= semantic_form_for @listing do |f| %>
+  <%= f.inputs do %>
+        
+          <%=link_to_add_association 'Add New Note', f, :notes%>
+        
+    <% f.actions do %>
+      <%= f.action :submit%>
+    <% end %>
+  <% end %>
+<%end%>
 
 </p>
 
-<%= link_to 'Edit', edit_listing_path(@listing) %> |
-<%= link_to 'Back', listings_path %>
+
+<%= link_to('Manually Edit', edit_listing_path(@listing)) %> |
+<%= link_to('Update via Web', @listing, method: :put) %> |
+<%= link_to('Back to List', listings_path) %> |
+<%= link_to('Delete', @listing, confirm: 'Are you sure?', method: :delete) %>
 

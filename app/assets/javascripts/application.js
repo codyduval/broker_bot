@@ -12,4 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require cocoon
+//= require dataTables/jquery.dataTables
+//= require on_the_spot
 //= require_tree .

@@ -2,6 +2,7 @@ class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.json
 
+  can_edit_on_the_spot
 
   def index
     @listings = Listing.all
@@ -12,8 +13,6 @@ class ListingsController < ApplicationController
     end
   end
 
-  # GET /listings/1
-  # GET /listings/1.json
   def show
     @listing = Listing.find(params[:id])
 
@@ -23,62 +22,87 @@ class ListingsController < ApplicationController
     end
   end
 
-  # GET /listings/new
-  # GET /listings/new.json
   def new
     @listing = Listing.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html # show.html.erb
       format.json { render json: @listing }
     end
   end
 
-  # GET /listings/1/edit
   def edit
     @listing = Listing.find(params[:id])
   end
 
-  # POST /listings
-  # POST /listings.json
   def create
-    @listing = Listing.new(params[:listing])
-    if @listing.save
-      Resque.enqueue(FetchListingData, @listing.id)
-      redirect_to @listing, :notice => "Successfully created new listing."
+    @listing = Listing.find_or_initialize_by_url(params[:listing][:url])
+    if @listing.persisted?
+      notice_msg = 'Listing already exists. Here it is.'
     else
-      render 'new'
-    end
-  end
-
-  # PUT /listings/1
-  # PUT /listings/1.json
-  def update
-    @listing = Listing.find(params[:id])
-    if @listing.update_attributes(params[:listing])
-      Resque.enqueue(FetchListingData, @listing.id)
+      notice_msg = 'New listing was successfully added.'
     end
 
     respond_to do |format|
-      if @listing.update_attributes(params[:listing])
-        format.html { redirect_to @listing, notice: 'Listing was successfully updated.' }
-        format.json { head :no_content }
+      if @listing.save
+        Resque.enqueue(FetchListingData, @listing.id)
+        format.html { redirect_to @listing, notice: notice_msg }
+        format.json { render json: @listing, status: :created, location: @listing }
       else
-        format.html { render action: "edit" }
+        format.html { render action: "new" }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /listings/1
-  # DELETE /listings/1.json
+  def update
+    @listing = Listing.find(params[:id])
+
+    respond_to do |format|
+      if @listing.update_attributes(params[:listing])
+        if (params[:commit] != "Add Note") && (params[:commit] != "Manually Update") && (params[:commit] != "Add")
+          Resque.enqueue(FetchListingData, @listing.id)
+          format.html { redirect_to @listing, notice: 'Listing is being updated in the background.' }
+          format.json { head :no_content }
+
+        elsif (params[:commit] == "Add")
+            format.html { redirect_to :action => "index", notice: 'Added a new note.'}
+            format.json { head :no_content }
+
+        elsif (params[:commit] == "Manually Update")
+          format.html { redirect_to @listing, notice: 'Listing was manually updated.' }
+          format.json { head :no_content }
+
+        elsif (params[:commit] == "Add Note")
+          format.html { redirect_to @listing, notice: 'Listing was manually updated.' }
+          format.json { head :no_content }
+
+        elsif
+          format.html { render action: "edit" }
+          format.json { render json: @listing.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+  end
+
+
+  def update_all
+    @listings = Listing.all
+
+    @listings.each do |listing|
+      Resque.enqueue(FetchListingData, listing.id)
+    end
+    flash[:notice] = 'Updating records in background.'
+    redirect_to :action => 'index'
+  end
+
+
   def destroy
     @listing = Listing.find(params[:id])
     @listing.destroy
-
     respond_to do |format|
-      format.html { redirect_to listings_url }
-      format.json { head :no_content }
+      format.html{ redirect_to listings_url}
+      format.xml { head :ok}
     end
   end
 end

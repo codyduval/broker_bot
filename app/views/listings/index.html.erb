@@ -1,25 +1,43 @@
-<h1>All Listings</h1>
+<p id="notice"><%= notice %></p>
+<h1>Broker Bot</h1>
 
-<table>
-  <tr>
-    <th>Address</th>
-    <th>Date Entered</th>
-    <th></th>
-  </tr>
+<select name="show_act_inact" id="show_act_inact">
+    <option value="" selected="selected">Show all</option>
+    <optgroup label="Show only:">
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+    </optgroup>
+</select>
 
-<% @listings.each do |listing| %>
-  <tr>
-    <td><%= listing.address %> </td>
-    <td><%= listing.created_at.to_date.to_formatted_s(:long) %> </td>
-    <td></td>
-    <td><%= link_to 'View Listing', listing.url, :target => '_blank' %></td>
-    <td><%= link_to 'Details', listing %></td>
-    <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
-    <td><%= link_to 'Delete', listing, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+<table id="listings" class="display">
+  <thead>
+    <tr>
+      <th>Address</th>
+      <th>Price</th>
+      <th>Date Entered</th>
+      <th>Note</th>
+      <th>Rating</th>
+      <th>Active?</th>
+    </tr>
+  </thead>
+
+<tbody>
+  <% @listings.each do |listing| %>
+    <tr>
+      <td><%= link_to(listing.address, listing, :style => 'text-decoration: none')%> </td>
+      <td><%=number_to_currency(listing.listed_price, :precision => 0, :delimiter => ",")%></td>
+      <td><%= listing.created_at.to_date.to_formatted_s(:long) %> </td>
+      <td class="table_note"><%= show_notes_index(listing)%> <%= add_note_from_index(listing) %></td>
+      <td><%= on_the_spot_edit listing, :property_rating, :type => :select, :data => [[1,"1"],[2,"2"],[3,"3"],[4,"4"],[5,"5"]]%> </td>
+      <td><%= on_the_spot_edit listing, :active_flag, :type => :select, :data => [[true,"Active"], [false,"Inactive"]] %> </td
+
+    </tr>
+  <% end %>
+</tbody>
 </table>
 
 <br />
+
+
 
 <%= link_to 'New Listing', new_listing_path %>

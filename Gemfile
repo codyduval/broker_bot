@@ -1,12 +1,15 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.3'
-gem 'bootstrap-sass', '2.0.0'
+gem 'bootstrap-sass', '2.0.3'
 gem 'resque'
 gem 'nokogiri'
 gem 'chronic'
 gem 'postmark-mitt'
 gem 'heroku'
+gem 'formtastic'
+gem 'cocoon', '1.0.20'
+gem 'on_the_spot'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -23,6 +26,8 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
+  gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+  gem 'jquery-ui-rails'
 end
 
 gem 'jquery-rails'

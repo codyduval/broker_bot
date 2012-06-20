@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120508162320) do
+ActiveRecord::Schema.define(:version => 20120523151437) do
+
+  create_table "comments", :force => true do |t|
+    t.text     "body"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
 
   create_table "listings", :force => true do |t|
     t.string   "address"
@@ -25,6 +35,8 @@ ActiveRecord::Schema.define(:version => 20120508162320) do
     t.date     "date_listed"
     t.date     "date_entered"
     t.integer  "days_on_market"
+    t.integer  "property_rating"
+    t.boolean  "active_flag"
   end
 
   create_table "notes", :force => true do |t|
@@ -32,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20120508162320) do
     t.string   "note_author"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "listing_id"
   end
 
   create_table "photos", :force => true do |t|

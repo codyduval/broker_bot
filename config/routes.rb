@@ -1,5 +1,20 @@
 Houselistings2::Application.routes.draw do
-  resources :listings
+  resources :listings do
+    collection do
+      get 'update_all'
+      put :update_attribute_on_the_spot
+      get :get_attribute_on_the_spot
+    end
+  end
+
+  resource :listings do
+    member do
+      put 'manual_update'
+    end
+  end
+
+  
+
 
   match "/inbound_email/" => "inbound_email#create"
   root :to => 'listings#index'

@@ -10,9 +10,9 @@ module ListingsHelper
 
   def open_house_helper
     if @listing.open_house_date.present?
-      @listing.open_house_date
+      on_the_spot_edit @listing, :open_house_date
     else
-      open_house_date = "Unknown"
+      on_the_spot_edit @listing, :open_house_date
     end
   end
 
@@ -23,8 +23,6 @@ module ListingsHelper
   def date_entered_formatted(listing)
     if listing.date_entered.present?
       date_listed = listing.date_entered.to_formatted_s(:long)
-    else
-      date_listed = ""
     end
   end
 
@@ -36,6 +34,29 @@ module ListingsHelper
     end
   end
 
+  def show_notes_index(listing)
+    if listing.notes.present?
+      truncate(listing.notes.last.note_text, :length =>100, :separator => ' ')
+    else
+      return
+    end
+  end
 
+  def add_note_from_index (listing)
+    semantic_form_for listing do |f|
+      f.inputs do
+        link_to_add_association 'New', f, :notes, :partial => 'short_note_fields'
+      end
+    end
+  end
+
+
+  def show_notes_full
+    if @listing.notes.present?
+      truncate(@listing.notes.last.note_text, :length =>500, :separator => ' ')
+    else
+      return
+    end
+  end
 
 end

@@ -1,3 +1,14 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+$(document).ready ->
+  oTable = $("#listings").dataTable
+    bJQueryUI: true,
+    bPaginate: true,
+    sPaginationType: "full_numbers",
+    bStateSave: true
+    iDisplayLength: 10
+    $("select#show_act_inact").change ->
+        val = $("select#show_act_inact option:selected").attr("value")
+        regex = (if val is "" then "" else "^" + val + "$")
+        oTable.fnFilter regex, 5, true
+
+
+

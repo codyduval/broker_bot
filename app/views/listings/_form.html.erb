@@ -1,54 +1,31 @@
-<%= form_for(@listing) do |f| %>
-  <% if @listing.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@listing.errors.count, "error") %> prohibited this listing from being saved:</h2>
+<%= semantic_form_for @listing do |f| %>
+  <%= f.inputs do %>
+    
+    <%= f.input :address %>
+    <%= f.input :active_flag, :label => "Active?" %>
+    <%= f.input :url, :as => :url%>
+    <%= f.input :date_entered %>
+    <%= f.input :date_listed %>
+    <%= f.input :listed_price %>
+    <%= f.input :open_house_date %>
+    <%= f.input :property_rating, :as => :radio, :collection => ["1", "2", "3", "4", "5"] %>
+    <%= f.input :listed_description, :input_html => { :rows => 8, :cols => 60 } %>
 
-      <ul>
-      <% @listing.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+    <h3> Notes </h3>
+    <div id="notes">
+      <%= f.semantic_fields_for :notes do |note| %>
+        <%= render 'note_fields', :f => note %>
+      <%end%>
+        <div class="links">
+          <%=link_to_add_association 'Add New Note', f, :notes%>
+        </div>
+    <% f.actions do %>
+      <%= f.action :submit%>
+    <% end %>
   <% end %>
 
-    <div class="field">
-      <%= f.label :address %><br/>
-      <%= f.text_field :address %>
-    </div>
-
-    <div class="field">
-      <%= f.label :url %><br/>
-      <%= f.url_field :url %>
-    </div>
-
-    <div class="field">
-      <%= f.label :date_entered %><br/>
-      <%= f.text_field :date_entered %>
-    </div>
-
-    <div class="field">
-      <%= f.label :date_listed %><br/>
-      <%= f.text_field :date_listed %>
-    </div>
-
-    <div class="field">
-      <%= f.label :listed_price %><br/>
-      <%= f.text_field :listed_price %>
-    </div>
-
-    <div class="field">
-      <%= f.label :open_house_date %><br/>
-      <%= f.text_field :open_house_date %>
-    </div>  
-
-    <div class="field">
-      <%= f.label :listed_description %><br/>
-      <%= f.text_area :listed_description %>
-    </div>           
-
   <div class="actions">
-    <%= f.submit %>
+    <%= submit_tag "Manually Update"%>
   </div>
-<% end %>
-
+<%end%>
 
