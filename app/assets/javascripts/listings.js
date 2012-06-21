@@ -4,13 +4,13 @@ $(document).ready(function() {
     bJQueryUI: true,
     bPaginate: true,
     sPaginationType: "full_numbers",
-    bStateSave: false,
+    bStateSave: true,
     iDisplayLength: 10},
     $("select#show_act_inact").change(function() {
         var regex, val;
         val = $("select#show_act_inact option:selected").attr("value");
         regex = (val === "" ? "" : "^" + val + "$");
-        return oTable.fnFilter(regex, 5, true);
+        return oTable.fnFilter(regex, 6, true);
       }));
 });
 
