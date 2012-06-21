@@ -35,7 +35,7 @@ module HerokuResqueAutoScale
       },
       {
         :workers => 2,
-        :job_count => 15
+        :job_count => 10
       }
     ].reverse_each do |scale_info|
       # Run backwards so it gets set to the highest value first

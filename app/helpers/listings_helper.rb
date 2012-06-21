@@ -59,4 +59,24 @@ module ListingsHelper
     end
   end
 
+  def show_photo_if_exist
+    if @listing.photos.present?
+      photo_url = @listing.photos.last.photo_url
+      return_html = "<a href='#{@listing.url}' target='_blank'><img src='#{photo_url}' ></a>"
+      return return_html
+    else
+      return
+    end
+  end
+
+  def show_photo_link_if_exist(listing)
+    if listing.photos.present?
+      photo_url = listing.photos.last.photo_url
+      return_html = "<a href='#{listing.url}' class='screenshot' rel='#{photo_url}' target='_blank'> pic </a>"
+      return return_html
+    else
+      return
+    end
+  end
+
 end

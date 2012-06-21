@@ -2,9 +2,9 @@
 <h1>Broker Bot</h1>
 
 <select name="show_act_inact" id="show_act_inact">
-    <option value="" selected="selected">Show all</option>
+    <option value="">Show all</option>
     <optgroup label="Show only:">
-        <option value="Active">Active</option>
+        <option value="Active" selected="selected">Active</option>
         <option value="Inactive">Inactive</option>
     </optgroup>
 </select>
@@ -13,6 +13,7 @@
   <thead>
     <tr>
       <th>Address</th>
+      <th>Pic</th>
       <th>Price</th>
       <th>Date Entered</th>
       <th>Note</th>
@@ -25,6 +26,7 @@
   <% @listings.each do |listing| %>
     <tr>
       <td><%= link_to(listing.address, listing, :style => 'text-decoration: none')%> </td>
+      <td><%= raw show_photo_link_if_exist(listing) %> </td>
       <td><%=number_to_currency(listing.listed_price, :precision => 0, :delimiter => ",")%></td>
       <td><%= listing.created_at.to_date.to_formatted_s(:long) %> </td>
       <td class="table_note"><%= show_notes_index(listing)%> <%= add_note_from_index(listing) %></td>

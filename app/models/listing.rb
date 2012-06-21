@@ -27,8 +27,10 @@ class Listing < ActiveRecord::Base
       parsed_uri_array.each do |single_parsed_uri|
         cleaned_uri = single_parsed_uri.to_s.gsub(/[*]/,'')
         listing = Listing.find_or_initialize_by_url(cleaned_uri)
-        note = listing.notes.build(:note_text => "Sent via email from #{from_email}")
-        note.save
+        unless listing.notes.present?
+          note = listing.notes.build(:note_text => "Sent via email from #{from_email}")
+          note.save
+        end
         listing.url = cleaned_uri
         listings.push(listing)
       end

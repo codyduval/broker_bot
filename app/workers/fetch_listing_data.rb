@@ -1,5 +1,5 @@
 class FetchListingData < ApplicationController
-  extend HerokuResqueAutoScale
+  #extend HerokuResqueAutoScale
 
   # require 'nokogiri'
   # require 'open-uri'
@@ -13,7 +13,8 @@ class FetchListingData < ApplicationController
       :address_node => "h1 span:nth-child(2)",
       :date_listed_string_node => ".labels_80 dt",
       :days_on_market_string_node => ".price_stats",
-      :open_house_date_node => ".open_house b"
+      :open_house_date_node => ".open_house b",
+      :main_photo_url_node => "#large_photo"
     },
 
     :brown_harris_nodes => {
@@ -154,6 +155,7 @@ class FetchListingData < ApplicationController
     date = Time.now
     date_listed = get_date_listed(broker_hash)
     open_house_date = get_open_house_date(broker_hash)
+    main_photo_url = get_main_photo_url(broker_hash)
 
     parsed_params = {:listed_description => description, :listed_price => price, :address => address, :date_entered => date, :date_listed => date_listed, :open_house_date => open_house_date}
 
@@ -216,6 +218,19 @@ class FetchListingData < ApplicationController
       open_house_date = @doc.at_css(broker_hash[:open_house_date_node])
     end
     open_house_date = open_house_date.text if open_house_date.present?
+  end
+
+  def self.get_main_photo_url(broker_hash)
+    if (broker_hash[:main_photo_url_node]).present?
+      main_photo_url = @doc.at_css(broker_hash[:main_photo_url_node])
+    end
+
+    if main_photo_url.present?
+      main_photo_url = main_photo_url['src']
+      photo = @listing.photos.build(:photo_url => main_photo_url)
+      photo.save
+    end
+
   end
 
   def self.bad_url

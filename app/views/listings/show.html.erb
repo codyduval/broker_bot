@@ -2,25 +2,27 @@
 
 
 <p>
+  <%= raw show_photo_if_exist %><br/>
+
   <b>Listing Address:</b>
   <%= on_the_spot_edit @listing, :address, :ok_text => "Yup", :tooltip => "Click me to edit.", :selected => "True" %><br/>
 
   <b>Listing Price:</b>
   <%= number_to_currency(@listing.listed_price, :precision => 0, :delimiter => ",")%><br/>
 
-  <b>Listing URL:</b> 
+  <b>Listing URL:</b>
   <%= link_to(@listing.url, @listing.url, :target => '_blank')%><br/>
 
   <b>Open House Date:</b>
   <%= open_house_helper %><br/>
 
-  <b>Days Listed (or since last price adjustment): </b> 
+  <b>Days Listed (or since last price adjustment): </b>
   <%= days_since_listed %><br/>
 
   <b>Google Map Link:</b>
   <%= link_to("Map", google_map_helper, :target => '_blank')%> <br/>
 
-  <b>Last Updated: </b> 
+  <b>Last Updated: </b>
   <%= date_entered_formatted(@listing) %>
   <%= days_since_updated %> <br/>
   <br/>
@@ -28,7 +30,7 @@
   <b>Active?</b>
   <%= on_the_spot_edit @listing, :active_flag, :type => :select, :data => [[true, 'Active'], [false, 'Inactive']] %> <br/>
 
-  <b>Rating </b> 
+  <b>Rating </b>
   <%= on_the_spot_edit @listing, :property_rating, :type => :select, :data => [[1,"1"],[2,"2"],[3,"3"],[4,"4"],[5,"5"]] %>
   <br/>
 
@@ -40,9 +42,9 @@
 
   <%= semantic_form_for @listing do |f| %>
   <%= f.inputs do %>
-        
+
           <%=link_to_add_association 'Add New Note', f, :notes%>
-        
+
     <% f.actions do %>
       <%= f.action :submit%>
     <% end %>
