@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var oTable, default_val;
+  var oTable;
   return oTable = $("#listings").dataTable({
     bJQueryUI: true,
     bPaginate: true,
@@ -50,3 +50,5 @@ this.screenshotPreview = function(){
 $(document).ready(function(){
   screenshotPreview();
 });
+
+

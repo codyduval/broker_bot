@@ -1,5 +1,5 @@
 class FetchListingData < ApplicationController
-  extend HerokuResqueAutoScale
+  #extend HerokuResqueAutoScale
 
   # require 'nokogiri'
   # require 'open-uri'
@@ -112,39 +112,38 @@ class FetchListingData < ApplicationController
   def self.perform(listing_id)
     @listing = Listing.find(listing_id)
     url = (Listing.find(listing_id)).url
-    http_response = Net::HTTP.get_response(URI.parse(url))
-
-    if http_response.code.match(/2[0-9]{2}|3[0-9]{2}/) #check HTTP header response code
-      @doc = Nokogiri::HTML(open(url, "User-Agent" => 'ruby' ))
-      if url.include?("corcoran")
-        broker_hash = @broker_parsing_nodes[:corcoran_nodes]
-      elsif url.include?("streeteasy")
-        broker_hash = @broker_parsing_nodes[:streeteasy_nodes]
-      elsif url.include?("bhsusa")
-        broker_hash = @broker_parsing_nodes[:brown_harris_nodes]
-      elsif url.include?("brooklynbridgerealty")
-        broker_hash = @broker_parsing_nodes[:brooklyn_bridge_nodes]
-      elsif url.include?("elliman")
-        broker_hash = @broker_parsing_nodes[:elliman_nodes]
-      elsif url.include?("halstead")
-        broker_hash = @broker_parsing_nodes[:halstead_nodes]
-      elsif url.include?("realtor")
-        broker_hash = @broker_parsing_nodes[:realtor_nodes]
-      elsif url.include?("nytimes")
-        broker_hash = @broker_parsing_nodes[:nyt_nodes]
-      elsif url.include?("century21")
-        broker_hash = @broker_parsing_nodes[:century_21_nodes]
-      else
-        parsed_params = unknown_broker
-      end
-
-      if broker_hash.present?
-        parsed_params = broker_parse(broker_hash)
-      end
-
+    #http_response = Net::HTTP.get_response(URI.parse(url,))
+    #Need to figure out why streeteasy always returns a 400 error on this
+    #if http_response.code.match(/401/) #check HTTP header response code is not 400
+      #parsed_params = bad_url
+    #else
+    @doc = Nokogiri::HTML(open(url, "User-Agent" => 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_2; cs-cz) AppleWebKit/525.13 (KHTML, like Gecko) Version/3.1 Safari/525.13' ))
+    if url.include?("corcoran")
+      broker_hash = @broker_parsing_nodes[:corcoran_nodes]
+    elsif url.include?("streeteasy")
+      broker_hash = @broker_parsing_nodes[:streeteasy_nodes]
+    elsif url.include?("bhsusa")
+      broker_hash = @broker_parsing_nodes[:brown_harris_nodes]
+    elsif url.include?("brooklynbridgerealty")
+      broker_hash = @broker_parsing_nodes[:brooklyn_bridge_nodes]
+    elsif url.include?("elliman")
+      broker_hash = @broker_parsing_nodes[:elliman_nodes]
+    elsif url.include?("halstead")
+      broker_hash = @broker_parsing_nodes[:halstead_nodes]
+    elsif url.include?("realtor")
+      broker_hash = @broker_parsing_nodes[:realtor_nodes]
+    elsif url.include?("nytimes")
+      broker_hash = @broker_parsing_nodes[:nyt_nodes]
+    elsif url.include?("century21")
+      broker_hash = @broker_parsing_nodes[:century_21_nodes]
     else
-      parsed_params = bad_url
+      parsed_params = unknown_broker
     end
+
+    if broker_hash.present?
+      parsed_params = broker_parse(broker_hash)
+    end
+    #end
     @listing.update_attributes(parsed_params)
   end
 
