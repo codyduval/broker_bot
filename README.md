@@ -4,7 +4,7 @@ It is deployed via Heroku's Cedar Stack.
 
 *How it Works*
 
-Email Parsing via Postmark
+Email Parsing via Postmark<br>
 A copy of any email exchanged between broker and client is sent to a mailbox at Postmark (http://postmarkapp.com/).  Postmark does the hard work of receiving and parsing the inbound email and squirting it back out to Broker Bot as nicely formatted JSON data.   Postmark POSTs this data to a Broker Bot url, which in turn scans the body of the email for any URLs which may be URLs that contain a real estate property that is for sale.  Broker Bot creates a new record for each valid URL it finds in the email body.
 
 Page Scraping with Nokogiri and Resque
