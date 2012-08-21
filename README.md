@@ -1,0 +1,1 @@
+Broker Bot (aka Houselistings), is a simple Rails app that monitors email communication between a real estate broker and their clients.  
